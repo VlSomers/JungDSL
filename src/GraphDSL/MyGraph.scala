@@ -6,6 +6,7 @@ import scala.collection.mutable.Queue
 /**
  * @author Vladar
  */
+
 class MyGraph(newName: String) {
   val graph = new DirectedSparseGraph[String, String]
   val vertexQueue = new Queue[String]
