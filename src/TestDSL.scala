@@ -5,6 +5,8 @@ import GraphDSL._
  */
 
 object TestDSL extends App{
+    print("lol")
+
   val graph = Graph("my graph")
   
   // vertices
