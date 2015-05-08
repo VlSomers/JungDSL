@@ -4,9 +4,8 @@ import GraphDSL._
  * @author Vladar
  */
 
-object TestDSL extends App{
-    print("lol")
-
+object TestMouche extends App{
+  print("lol")
   val graph = Graph("my graph")
   
   // vertices
@@ -23,10 +22,8 @@ object TestDSL extends App{
   "Square".shape = Square(20)
   "Circle".shape = Circle(20)
   "Rectangle".shape = Rectangle(20, 40)
-  * 
-  */
   val graphFrame = GraphFrame(graph)
-  
+  */
 }
 
 /*
