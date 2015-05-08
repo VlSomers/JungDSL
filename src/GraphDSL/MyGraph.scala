@@ -19,25 +19,9 @@ class MyGraph(newName: String) {
     vertexQueue += (vertex)
     this
   }
-  /*
-  def +=(vertex: (String, String)): MyGraph = {    
-    vertexQueue += vertex._1 
-    vertexQueue += vertex._2
+  
+  def +=(verticesAndEdge: (String,String,String)): MyGraph = {    
+    graph.addEdge(verticesAndEdge._3, verticesAndEdge._1, verticesAndEdge._2)
     this
   }
-  */
-  
-  def >(vertex: String): MyGraph = {    
-    vertexQueue += (vertex)
-    this
-  }
-  
-  
-  def withLabel(edge: String): MyGraph = {    
-    graph.addEdge(edge, vertexQueue.dequeue, vertexQueue.dequeue)
-    this
-  }
-  
-  // graph += "Square" ­­> "Rectangle" withLabel "Edge1"
-  // graph.+=("Square").>("Rectangle").withLabel("Edge1")
 }

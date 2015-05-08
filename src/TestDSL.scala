@@ -1,5 +1,4 @@
 import GraphDSL._
-import GraphDSL._
 
 /**
  * @author Vladar
@@ -7,17 +6,16 @@ import GraphDSL._
 
 object TestDSL extends App{
   val graph = Graph("my graph")
+  
   // vertices
   graph += "Square"
   graph += "Rectangle"
   graph += "Circle"
-  // edges
-  println("test")
   
-  //graph.+=("Square").>("Rectangle").withLabel("Edge1")
-  //(graph += "Square") > "Circle" withLabel "Edge2"
-  
-  graph += "Circle" > "Square" withLabel "Edge3"
+  // edges  
+  graph += "Square" to "Rectangle" withLabel "Edge1"
+  graph += "Square" to "Circle" withLabel "Edge2"
+  graph += "Circle" to "Square" withLabel "Edge3"
   
   /*
   "Square".shape = Square(20)

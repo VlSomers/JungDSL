@@ -10,13 +10,15 @@ package object GraphDSL {
     }
     */
   }
-  implicit class StringPolyOps(val vertex1: String) {
-    
-    def >(vertex2: String): MyGraph = {
-      add(vertex2)
+  implicit class StringGraphOps(val vertex1: String) {
+    def to(vertex2: String): (String,String) = {
+      (vertex1, vertex2)
     }
-    
-    def to(vertex2: String): (String,String) = (vertex1, vertex2) 
-    
+  }
+  
+  implicit class TupleGraphOps(val vertices: (String,String)) {
+    def withLabel(edge: String): (String,String,String) = {
+      (vertices._1, vertices._2, edge)
+    }
   }
 }

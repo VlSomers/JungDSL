@@ -12,12 +12,12 @@ object TestNoDSL extends App{
   
   
   val graph = new DirectedSparseGraph[String, String]
-  //graph.addVertex("Square")
-  //graph.addVertex("Square")
-  //graph.addVertex("Circle")
+  graph.addVertex("Square")
+  graph.addVertex("Square")
+  graph.addVertex("Circle")
   graph.addEdge("Edge1", "Square", "Rectangle")
   graph.addEdge("Edge2", "Square", "Circle")
-  graph.addEdge("Edge3", "Circlessss", "Square")
+  graph.addEdge("Edge3", "Circle", "Square")
   val layout = new CircleLayout[String, String](graph)
   val vv = new VisualizationViewer[String, String](layout)
   val transformer = new Transformer[String, String] {
