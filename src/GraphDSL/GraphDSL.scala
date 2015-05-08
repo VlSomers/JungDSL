@@ -3,6 +3,13 @@ import scala.collection.immutable.Queue
 package object GraphDSL {
 
   
+  
+  implicit var gr : MyGraph = Graph() 
+  
+  def addV(vertices : String*)(implicit gr : MyGraph) = gr.addV( vertices: _*)
+  def addE(edges : (String,String,String)*)(implicit gr : MyGraph) = gr.addE( edges: _*)
+  def show() = GraphFrame(gr)
+  
   implicit class GraphOps(val graph: Int) {
     /*
     def +=(vertex: String)(implicit computer: PolyComputer): Polynomial = {

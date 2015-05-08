@@ -5,19 +5,28 @@ import GraphDSL._
  */
 
 object TestMouche extends App{
-  print("lol")
-  val graph = Graph("my graph")
+  print("lole")
+  
+  
+  //val gr = Graph("my graph")
   
   // vertices
-  graph += "Square"
+  /*graph += "Square"
   graph += "Rectangle"
-  graph += "Circle"
+  graph += "Circle"*/
+  addV("Square","Rectangle","Circle")
+  addE(("Square","Rectangle","Edge1"),("Square","Circle","Edge2"),("Circle","Square","Edge3"))
+  show()
   
-  // edges  
-  graph += "Square" to "Rectangle" withLabel "Edge1"
-  graph += "Square" to "Circle" withLabel "Edge2"
-  graph += "Circle" to "Square" withLabel "Edge3"
+  // edges 
+  /* 
+  gr += "Square" to "Rectangle" withLabel "Edge1"
+  gr += "Square" to "Circle" withLabel "Edge2"
+  gr += "Circle" to "Square" withLabel "Edge3"*/
   
+  //print("lol2")
+   // val graphFrame = GraphFrame(gr)
+
   /*
   "Square".shape = Square(20)
   "Circle".shape = Circle(20)
