@@ -8,20 +8,20 @@ import edu.uci.ics.jung.graph.util.EdgeType
  */
 
 class SimpleGraph(newName: String) extends Graph {
-  val graph = new SparseGraph[String, String]
+  val graph = new SparseGraph[Vertex, Edge]
   
   private var _name = newName  
   def name: String = _name
   def name_=(newName: String) = _name = newName
   
-  def addVertex(vertex: vertex): Graph = {    
+  def addVertex(vertex: Vertex): Graph = {    
     graph.addVertex(vertex)
     this
   }
   
-  def addEdge(vertex1: vertex, vertex2: vertex, edgeLabel: String, isDirected: Boolean): Graph = {    
-    if(isDirected) graph.addEdge(vertex1, vertex2, edgeLabel, EdgeType.DIRECTED)
-    else graph.addEdge(vertex1, vertex2, edgeLabel)
+  def addEdge(vertex1: Vertex, vertex2: Vertex, edge: Edge, isDirected: Boolean): Graph = {    
+    if(isDirected) graph.addEdge(edge, vertex1, vertex2, EdgeType.DIRECTED)
+    else graph.addEdge(edge, vertex1, vertex2)
     this
   }
 }

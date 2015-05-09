@@ -26,7 +26,7 @@ object TestDSL extends App with simpleGraphModel {
   "Rectangle".shape = Rectangle(20, 40)
 */
   val graphFrame = GraphFrame(graph)
-  
+  graphFrame.show()
 }
 
 /*

@@ -5,6 +5,6 @@ package GraphDSL
  */
 
 abstract class Graph {
-  def addVertex(vertex: vertex): Graph
-  def addEdge(vertex1: vertex, vertex2: vertex, edgeLabel: String, isDirected: Boolean): Graph
+  def addVertex(vertex: Vertex): Graph
+  def addEdge(vertex1: Vertex, vertex2: Vertex, edge: Edge, isDirected: Boolean): Graph
 }
