@@ -1,7 +1,5 @@
 package GraphDSL
 
-import edu.uci.ics.jung.visualization._
-
 /**
  * @author Vladar
  */

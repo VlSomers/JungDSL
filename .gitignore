@@ -7,3 +7,5 @@ bin/TestDSL$.class
 *.class
 
 .cache
+
+.classpath

@@ -20,11 +20,11 @@ object TestDSL extends App with simpleGraphModel {
   graph += "Circle" to "Square" withLabel "Edge3"
   graph += ("Triangle", "Rectangle", "Edge4") and ("Losange", "Triangle", "Edge5") and ("Node3","Node2","pont")
   
-  
+  /*
   "Square".shape = Square(20)
   "Circle".shape = Circle(20)
   "Rectangle".shape = Rectangle(20, 40)
-
+*/
   val graphFrame = GraphFrame(graph)
   
 }
