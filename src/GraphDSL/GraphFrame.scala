@@ -5,24 +5,26 @@ import edu.uci.ics.jung.visualization.VisualizationViewer
 import edu.uci.ics.jung.algorithms.layout.CircleLayout
 import org.apache.commons.collections15.Transformer
 import java.awt._
+import edu.uci.ics.jung.algorithms.layout.Layout
 
 /**
  * @author Vladar
  */
-class GraphFrame(graph: SimpleGraph) {
+class GraphFrame(graph: Graph) {
   val frame = new JFrame
-  val layout = new CircleLayout[Vertex, Edge](graph.graph)
-  val vv = new VisualizationViewer[Vertex, Edge](layout)
+  var layout: Layout[Vertex, Edge] = new CircleLayout[Vertex, Edge](graph.graph)
+  
+  implicit var gr: Graph = graph
   
   var defaultVertexLabel = "vertex"
   var defaultVertexColor = Color.GREEN
   var defaultVertexShape = new Rectangle(-10, -10, 20, 20)
   var defaultEdgeLabel   = "edge"
   var defaultEdgeColor   = Color.BLACK
-  var defaultEdgeStroke  = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, Array(10.0f), 0.0f)
-    
+  var defaultEdgeStroke  = new BasicStroke()
+  
   var vertexLabelTSF = new Transformer[Vertex, String] {
-      override def transform(vertex: Vertex): String = if(vertex.label!=null) vertex.label else defaultVertexLabel
+      override def transform(vertex: Vertex): String = if(vertex.label!=null) vertex.label else vertex.value.toString
   }
   
   var vertexPaintTSF = new Transformer[Vertex, Paint] {
@@ -34,7 +36,7 @@ class GraphFrame(graph: SimpleGraph) {
   }
   
   var edgeLabelTSF = new Transformer[Edge, String] {
-      override def transform(edge: Edge): String = if(edge.label!=null) edge.label else defaultEdgeLabel
+      override def transform(edge: Edge): String = if(edge.label!=null) edge.label else edge.value.toString
   }
   
   var edgePaintTSF = new Transformer[Edge, Paint] {
@@ -45,13 +47,15 @@ class GraphFrame(graph: SimpleGraph) {
       override def transform(edge: Edge): Stroke = if(edge.stroke!=null) edge.stroke else defaultEdgeStroke
   }
   
-
+  
+  
+  def changeLayout(fct: => Layout[Vertex, Edge]): Unit = layout = fct
   
   def vertexPaintTSF_=(fct: String => Color): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
       override def transform(vertex: Vertex): Color = fct(vertex.value)
   }
   
-  def vertexPaintValuesTSF_=(fct: String => (Int, Int, Int)): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
+  def vertexPaintValuesTSF(fct: String => (Int, Int, Int)): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
       override def transform(vertex: Vertex): Color = {
         val colorValues = fct(vertex.value)
         new Color(colorValues._1, colorValues._2, colorValues._3)
@@ -61,6 +65,8 @@ class GraphFrame(graph: SimpleGraph) {
   
   
   def show(): Unit = {
+    val vv = new VisualizationViewer[Vertex, Edge](layout)
+    
     // set vertex transformer
     vv.getRenderContext.setVertexLabelTransformer(vertexLabelTSF)
     vv.getRenderContext.setVertexFillPaintTransformer(vertexPaintTSF);
@@ -69,7 +75,9 @@ class GraphFrame(graph: SimpleGraph) {
     // set edge transformer
     vv.getRenderContext.setEdgeLabelTransformer(edgeLabelTSF)
     vv.getRenderContext.setEdgeDrawPaintTransformer(edgePaintTSF)
-    vv.getRenderContext.setEdgeStrokeTransformer(edgeStrokeTSF);
+    vv.getRenderContext.setArrowDrawPaintTransformer(edgePaintTSF)
+    vv.getRenderContext.setEdgeStrokeTransformer(edgeStrokeTSF)
+    vv.getRenderContext.setEdgeArrowStrokeTransformer(edgeStrokeTSF)
     
     // create and launch the frame
     frame.getContentPane.add(vv)

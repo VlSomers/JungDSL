@@ -4,11 +4,14 @@ import java.awt.geom.Ellipse2D
 import java.awt.Shape
 import java.awt.BasicStroke
 import java.awt.Stroke
+import edu.uci.ics.jung.algorithms.layout.Layout
+import edu.uci.ics.jung.algorithms.layout.CircleLayout
+import edu.uci.ics.jung.algorithms.layout.StaticLayout
+import edu.uci.ics.jung.algorithms.layout.KKLayout
+import edu.uci.ics.jung.algorithms.layout.SpringLayout
 
 package object GraphDSL {
 
-  //type Polynomial = polynomial.core.Polynomial
-  //final val Polynomial = polynomial.core.Polynomial
   type edge = (Vertex,Vertex,Edge)
   
   final val blue = Color.BLUE
@@ -28,6 +31,12 @@ package object GraphDSL {
   def Square(x: Int) : Shape = new Rectangle(-x/2, -x/2, x, x)
   def Ellipse(x: Int, y: Int) : Shape = new Ellipse2D.Double(-x/2, -y/2, x, y)
   def Circle(x: Int) : Shape = new Ellipse2D.Double(-x/2, -x/2, x, x)
+  
+  def CircleLayout(graph: Graph) : Layout[Vertex, Edge] = new CircleLayout[Vertex, Edge](graph.graph)
+  def StaticLayout(graph: Graph) : Layout[Vertex, Edge] = new StaticLayout[Vertex, Edge](graph.graph)
+  def KKLayout(graph: Graph) : Layout[Vertex, Edge] = new KKLayout[Vertex, Edge](graph.graph)
+  def SpringLayout(graph: Graph) : Layout[Vertex, Edge] = new SpringLayout[Vertex, Edge](graph.graph)
+ 
 
   trait simpleGraphModel { 
     implicit val model: GraphModel = new SimpleGraphModel() with DirectedGraphModel
@@ -73,6 +82,10 @@ package object GraphDSL {
     def stroke(stroke: Stroke): Unit = {
       Edge(component) = stroke
     }
+    def label(label: String): Unit = {
+      Edge(component) = label
+      Vertex(component) = label
+    }
   }
   
   implicit class TupleGraphOps(val vertices: (String, String)) {
@@ -95,6 +108,17 @@ package object GraphDSL {
   implicit class ListVerticesGraphOps(val vertices: List[String]) {
     def and(vertex: String): List[String] = {
       vertices:+vertex
+    }
+  }
+  
+  implicit class GrapheFrameOps(val graphFrame: GraphFrame) {
+    def color(fct: String => (Int, Int, Int)): Unit = {
+      graphFrame.vertexPaintValuesTSF(fct)
+    }
+    def shape(f: Graph => Layout[Vertex, Edge]): Unit = {
+      graphFrame.changeLayout(
+        f(graphFrame.gr)
+      )
     }
   }
 }

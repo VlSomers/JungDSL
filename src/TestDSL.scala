@@ -18,7 +18,7 @@ object TestDSL extends App with simpleGraphModel {
   graph += "Square" to "Rectangle" withLabel "Edge1"
   graph += "Square" to "Circle" withLabel "Edge2"
   graph += "Circle" to "Square" withLabel "Edge3"
-  graph += ("Triangle", "Rectangle", "Edge4") and ("Losange", "Triangle", "Edge5") and ("Node3","Node2","pont")
+  graph += ("Triangle", "Rectangle", "Edge4") and ("30", "Triangle", "Edge5") and ("Node3","Node2","pont")
   
   "Circle".color(blue)
   "Square".color(red)
@@ -33,8 +33,12 @@ object TestDSL extends App with simpleGraphModel {
   "Edge1".color(pink)
   "Edge2".color(orange)
   
-  "Edge1".stroke(DashedStroke(10.0f))
+  "Edge1".stroke(DashedStroke(1.0f))
   "Edge2".stroke(Stroke(2.0f))
+  
+  "Edge1".label("CROUCROUTE")
+  "Square".label("CECI EST UN CARRE")
+  
   
   /*
   "Square".shape = Square(20)
@@ -42,7 +46,13 @@ object TestDSL extends App with simpleGraphModel {
   "Rectangle".shape = Rectangle(20, 40)
 */
   val graphFrame = GraphFrame(graph)
-  graphFrame.show()
+  graphFrame.shape(CircleLayout)
+  graphFrame.show
+  
+  val gf = GraphFrame(graph)
+  gf.color(x => (20,20,200))
+  gf.shape(SpringLayout)
+  gf.show()
 }
 
 /*
