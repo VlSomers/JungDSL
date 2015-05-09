@@ -1,4 +1,9 @@
 import java.awt.Color
+import java.awt.Rectangle
+import java.awt.geom.Ellipse2D
+import java.awt.Shape
+import java.awt.BasicStroke
+import java.awt.Stroke
 
 package object GraphDSL {
 
@@ -15,6 +20,14 @@ package object GraphDSL {
   final val white = Color.WHITE
   final val grey = Color.DARK_GRAY
   final val orange = Color.ORANGE
+  
+  def DashedStroke(x: Float) : Stroke = new BasicStroke(x, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, Array(10.0f), 2.0f)
+  def Stroke(x: Float) : Stroke = new BasicStroke(x)
+  
+  def Rectangle(x: Int, y: Int) : Shape = new Rectangle(-x/2, -y/2, x, y)
+  def Square(x: Int) : Shape = new Rectangle(-x/2, -x/2, x, x)
+  def Ellipse(x: Int, y: Int) : Shape = new Ellipse2D.Double(-x/2, -y/2, x, y)
+  def Circle(x: Int) : Shape = new Ellipse2D.Double(-x/2, -x/2, x, x)
 
   trait simpleGraphModel { 
     implicit val model: GraphModel = new SimpleGraphModel() with DirectedGraphModel
@@ -40,18 +53,25 @@ package object GraphDSL {
     }
   }
   
-  implicit class VertexGraphOps(val vertex1: String) {
+  implicit class VertexGraphOps(val component: String) {
     def to(vertex2: String): (String,String) = {
-      (vertex1, vertex2)
+      (component, vertex2)
     }
     def and(vertex2: String): List[String] = {
-      List(vertex1, vertex2)
+      List(component, vertex2)
     }
     def shape(vertex2: String): Unit = {
-      List(vertex1, vertex2)
+      List(component, vertex2)
     }
     def color(color: Color): Unit = {
-      
+      Vertex(component) = color
+      Edge(component) = color
+    }
+    def shape(shape: Shape): Unit = {
+      Vertex(component) = shape
+    }
+    def stroke(stroke: Stroke): Unit = {
+      Edge(component) = stroke
     }
   }
   

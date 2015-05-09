@@ -7,6 +7,7 @@ import scala.collection.mutable.Map
  * @author Vladar
  */
 class Edge(edge : String) {
+  var value: String = edge
   var label: String = edge
   var color: Color = null
   var stroke: Stroke = null
@@ -26,10 +27,10 @@ object Edge {
     }
   }
   
-  def update(edge:String, label:String) = edgeMap(edge).label = label
+  def update(edge:String, label:String) = if(edgeMap.contains(edge)) edgeMap(edge).label = label
   
-  def update(edge:String, color:Color) = edgeMap(edge).color = color
+  def update(edge:String, color:Color) = if(edgeMap.contains(edge)) edgeMap(edge).color = color
   
-  def update(edge:String, stroke:Stroke) = edgeMap(edge).stroke = stroke
+  def update(edge:String, stroke:Stroke) = if(edgeMap.contains(edge)) edgeMap(edge).stroke = stroke
   
 }

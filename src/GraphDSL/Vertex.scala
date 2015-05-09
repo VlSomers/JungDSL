@@ -26,4 +26,11 @@ object Vertex {
       verticesMap(vertex)
     }
   }
+  
+  def update(vertex:String, label:String) = if(verticesMap.contains(vertex)) verticesMap(vertex).label = label
+  
+  def update(vertex:String, color:Color) = if(verticesMap.contains(vertex)) verticesMap(vertex).color = color
+  
+  def update(vertex:String, shape:Shape) = if(verticesMap.contains(vertex)) verticesMap(vertex).shape = shape
+  
 }

@@ -16,7 +16,7 @@ class GraphFrame(graph: SimpleGraph) {
   
   var defaultVertexLabel = "vertex"
   var defaultVertexColor = Color.GREEN
-  var defaultVertexShape = new Rectangle(10, 10, 20, 20) //Point2D center = layout.transform(vertex) // new Rectangle((int)center.getX()-10, (int)center.getY()-10, 20, 20);
+  var defaultVertexShape = new Rectangle(-10, -10, 20, 20)
   var defaultEdgeLabel   = "edge"
   var defaultEdgeColor   = Color.BLACK
   var defaultEdgeStroke  = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, Array(10.0f), 0.0f)
@@ -68,11 +68,10 @@ class GraphFrame(graph: SimpleGraph) {
     
     // set edge transformer
     vv.getRenderContext.setEdgeLabelTransformer(edgeLabelTSF)
-    //vv.getRenderContext.setEdgeFillPaintTransformer(edgePaintTSF)
+    vv.getRenderContext.setEdgeDrawPaintTransformer(edgePaintTSF)
     vv.getRenderContext.setEdgeStrokeTransformer(edgeStrokeTSF);
     
     // create and launch the frame
-    val frame = new JFrame
     frame.getContentPane.add(vv)
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
     frame.pack()

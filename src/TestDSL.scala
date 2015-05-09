@@ -15,10 +15,26 @@ object TestDSL extends App with simpleGraphModel {
   graph += "Node1" and "Node2" and "Node3"
   
   // edges  
-  graph += "Square" -> "Rectangle" withLabel "Edge1"
+  graph += "Square" to "Rectangle" withLabel "Edge1"
   graph += "Square" to "Circle" withLabel "Edge2"
   graph += "Circle" to "Square" withLabel "Edge3"
   graph += ("Triangle", "Rectangle", "Edge4") and ("Losange", "Triangle", "Edge5") and ("Node3","Node2","pont")
+  
+  "Circle".color(blue)
+  "Square".color(red)
+  "mlskqdjflksdjf".color(yellow)
+  "Rectangle".color(pink)
+  
+  "Circle".shape(Circle(50))
+  "Square".shape(Square(30))
+  "Rectangle".shape(Rectangle(20, 40))
+  "Triangle".shape(Ellipse(20,30))
+  
+  "Edge1".color(pink)
+  "Edge2".color(orange)
+  
+  "Edge1".stroke(DashedStroke(10.0f))
+  "Edge2".stroke(Stroke(2.0f))
   
   /*
   "Square".shape = Square(20)
