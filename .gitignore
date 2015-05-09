@@ -5,3 +5,5 @@
 bin/TestDSL$.class
 
 *.class
+
+.cache
