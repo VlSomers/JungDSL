@@ -11,7 +11,7 @@ import org.apache.commons.collections15.Transformer
 class GraphFrame {
   val frame = new JFrame
   
-  def apply(graph: MyGraph): Unit = {    
+  def apply(graph: SimpleGraph): Unit = {    
     val layout = new CircleLayout[String, String](graph.graph)
     val vv = new VisualizationViewer[String, String](layout)
     val transformer = new Transformer[String, String] {
@@ -29,7 +29,7 @@ class GraphFrame {
 }
 
 object GraphFrame {
-  def apply(graph: MyGraph): GraphFrame = {
+  def apply(graph: SimpleGraph): GraphFrame = {
     val frame = new GraphFrame()
     frame(graph)
     frame

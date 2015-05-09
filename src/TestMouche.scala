@@ -6,6 +6,7 @@ import GraphDSL._
 
 object TestMouche extends App{
   print("lol")
+  /*
   val graph = Graph("my graph")
   
   // vertices
@@ -17,7 +18,7 @@ object TestMouche extends App{
   graph += "Square" to "Rectangle" withLabel "Edge1"
   graph += "Square" to "Circle" withLabel "Edge2"
   graph += "Circle" to "Square" withLabel "Edge3"
-  
+  */
   /*
   "Square".shape = Square(20)
   "Circle".shape = Circle(20)

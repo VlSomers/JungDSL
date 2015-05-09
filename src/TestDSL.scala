@@ -4,27 +4,27 @@ import GraphDSL._
  * @author Vladar
  */
 
-object TestDSL extends App{
-    print("lol")
+object TestDSL extends App with simpleGraphModel {
 
-  val graph = Graph("my graph")
+  val graph = SimpleGraph("my graph")
   
   // vertices
   graph += "Square"
   graph += "Rectangle"
   graph += "Circle"
+  graph += "Node1" and "Node2" and "Node3"
   
   // edges  
-  graph += "Square" to "Rectangle" withLabel "Edge1"
+  graph += "Square" -> "Rectangle" withLabel "Edge1"
   graph += "Square" to "Circle" withLabel "Edge2"
   graph += "Circle" to "Square" withLabel "Edge3"
+  graph += ("Triangle", "Rectangle", "Edge4") and ("Losange", "Triangle", "Edge5") and ("Node3","Node2","pont")
   
-  /*
+  
   "Square".shape = Square(20)
   "Circle".shape = Circle(20)
   "Rectangle".shape = Rectangle(20, 40)
-  * 
-  */
+
   val graphFrame = GraphFrame(graph)
   
 }
@@ -64,5 +64,4 @@ object TestDSL extends App{
   frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
   frame.pack()
   frame.setVisible(true)
-
 */
