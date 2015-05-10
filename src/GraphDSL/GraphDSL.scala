@@ -15,15 +15,15 @@ package object GraphDSL {
   type edge = (Vertex,Vertex,Edge)
   type Component = Any
   
-  final val blue = Color.BLUE
-  final val red = Color.RED
-  final val black = Color.BLACK
-  final val green = Color.GREEN
-  final val yellow = Color.YELLOW
-  final val pink = Color.PINK
-  final val white = Color.WHITE
-  final val grey = Color.DARK_GRAY
-  final val orange = Color.ORANGE
+  final val Blue = Color.BLUE
+  final val Red = Color.RED
+  final val Black = Color.BLACK
+  final val Green = Color.GREEN
+  final val Yellow = Color.YELLOW
+  final val Pink = Color.PINK
+  final val White = Color.WHITE
+  final val Grey = Color.DARK_GRAY
+  final val Orange = Color.ORANGE
   
   def DashedStroke(x: Float) : Stroke = new BasicStroke(x, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, Array(10.0f), 2.0f)
   def Stroke(x: Float) : Stroke = new BasicStroke(x)
@@ -61,10 +61,14 @@ package object GraphDSL {
       for (vertex<-vertices) {gr = model.addVertex(graph, Vertex(vertex))}
       gr
     }
+    def show(): Unit = {
+        val graphFrame = GraphFrame(graph)
+        graphFrame.show
+    }
   }
   
   implicit class VertexGraphOps(val component: Component) {
-    def test(vertex2: Component): (Component, Component) = {
+    def link(vertex2: Component): (Component, Component) = {
       (component, vertex2)
     }
     def and(vertex2: Component): List[Component] = {
@@ -90,7 +94,7 @@ package object GraphDSL {
   }
   
   implicit class TupleGraphOps(val vertices: (Component, Component)) {
-    def withLabel(edgeLabel: Component): edge = {
+    def withEdge(edgeLabel: Component): edge = {
       (Vertex(vertices._1), Vertex(vertices._2), Edge(edgeLabel))
     }
   }
@@ -112,21 +116,22 @@ package object GraphDSL {
     }
   }
   
-  implicit class GrapheFrameOps(val graphFrame: GraphFrame) {
+  implicit class GraphFrameOps(val graphFrame: GraphFrame) {
     def color(fct: Component => (Int, Int, Int)): Unit = {
       graphFrame.vertexPaintValuesTSF(fct)
     }
+    
+    def paint(fct: => (Int, Int, Int)): Unit = {
+      graphFrame.vertexPaintValuesTSF(fct)
+    }
+    
     def shape(f: Graph => Layout[Vertex, Edge]): Unit = {
       graphFrame.changeLayout(
         f(graphFrame.gr)
       )
     }
-  }
-  
-  implicit class AnyFrameOps(val component: Any) {
-    def afficher(): Unit = {
-      println(component.toString)
+    def show(): Unit = {
+      graphFrame.show
     }
   }
-  
 }

@@ -66,6 +66,13 @@ class GraphFrame(graph: Graph) {
         new Color(colorValues._1, colorValues._2, colorValues._3)
       }
   }
+  
+  def vertexPaintValuesTSF(fct: => (Int, Int, Int)): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
+      override def transform(vertex: Vertex): Color = {
+        val colorValues = fct // by name parameter
+        new Color(colorValues._1, colorValues._2, colorValues._3)
+      }
+  }
 
   
   
@@ -141,7 +148,7 @@ class GraphFrame(graph: Graph) {
 }
 
 object GraphFrame {
-  def apply(graph: SimpleGraph): GraphFrame = {
+  def apply(graph: Graph): GraphFrame = {
     new GraphFrame(graph)
   }
 }
