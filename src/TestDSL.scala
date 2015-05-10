@@ -4,9 +4,20 @@ import GraphDSL._
  * @author Vladar
  */
 
-object TestDSL extends App with simpleGraphModel {
+object TestDSL extends App with SimpleDirectedGraphModel {
 
   val graph = SimpleGraph("my graph")
+  
+  val graph2 = new SimpleGraph("my graph") with CompleteGraph
+  graph2 += "vladi"
+  graph2 += "mouche"
+  graph2 += "armand"
+  graph2 += "chillton"
+  graph2.show
+  
+  
+  
+  
   graph.name = "ALLLLLERRRRR"
 
   // vertices
@@ -24,6 +35,7 @@ object TestDSL extends App with simpleGraphModel {
   class Person(var name: String, var age: Int)
   val mouche = new Person("Armand", 20)
   graph += (1, 2, 3) and (mouche, "blabla", (2,3))
+  
   
   mouche.label("Armand Bosquillon")
   

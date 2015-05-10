@@ -14,8 +14,13 @@ class Edge(edge : Component) {
 }
 
 object Edge {
+  // use a hash table which contains all Edges with they value as key
   val edgeMap: Map[Component, Edge] = Map()
   
+ /**
+  * If an Edge with this value already exists, we return it,
+  * otherwise we create a new Edge with this value
+  */
   def apply(edge: Component): Edge = {
     if (!edgeMap.contains(edge)) {
         val ed = new Edge(edge)

@@ -13,9 +13,14 @@ class Vertex(vertex: Component) {
   var shape: Shape = null
 }
 
-object Vertex {  
+object Vertex {
+  // use a hash table which contains all Vertices with they value as key
   val verticesMap: Map[Component, Vertex] = Map()
   
+  /**
+   * If a Vertex with this value already exists, we return it,
+   * otherwise we create a new Vertex with this value
+   */
   def apply(vertex: Component): Vertex = {
     if (!verticesMap.contains(vertex)) {
         val vt = new Vertex(vertex)
