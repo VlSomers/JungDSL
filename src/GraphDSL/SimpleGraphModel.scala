@@ -1,8 +1,6 @@
 package GraphDSL
 import scala.collection.JavaConversions._
-/**
- * @author Vladar
- */
+
 class SimpleGraphModel extends GraphModel {
   
   def addVertex(graph: Graph, vertex: Vertex): Graph = {
@@ -13,7 +11,9 @@ class SimpleGraphModel extends GraphModel {
   }
   
   
-  
+  /** Create a new graph as the mix of two other graphs :
+   *  We add the vertices and edges of graph1 AND graph2 in graph3
+   */
   def add(graph1 : Graph, graph2 : Graph) : Graph ={
     
     val dest = SimpleGraph()
@@ -44,28 +44,22 @@ class SimpleGraphModel extends GraphModel {
         dest.addEdge(vertices(0) , vertices(1) , e ,false)
       } 
     }
-    
     dest
-    
   }
-  
-  
-  /*def multiply(graph : Graph, Graph : Graph) : Graph = {
-    
-  }
-  def clone(Graph :Graph) = {
-    
-  }*/
 }
 
+/** A property for the model : the edges are implicitly directed */
 trait DirectedGraphModel extends GraphModel {
     abstract override def addEdge(graph: Graph, edge: edge, isDirected: Boolean = false): Graph = {
     super.addEdge(graph, edge, true)
   }
 }
 
+/** A property for the model : the edges are implicitly undirected */
 trait UndirectedGraphModel extends GraphModel { // useless?
     abstract override def addEdge(graph: Graph, edge: edge, isDirected: Boolean = false): Graph = {
     super.addEdge(graph, edge, false)
   }
 }
+
+

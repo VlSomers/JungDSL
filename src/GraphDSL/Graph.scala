@@ -3,12 +3,11 @@ package GraphDSL
 import java.util.Collection
 
 /**
- * @author Vladar
+ * Represents a graph. Can be extended for example with a graph using :
+ * SparseGraph, DirectedSparseGraph, UnDirectedSparseGraph
  */
-
-
 abstract class Graph { 
-  var _name: String
+  var _name: String // label of the Frame
   def name: String
   def name_= (newName: String)
   
@@ -21,9 +20,5 @@ abstract class Graph {
   def getIncidentVertices(e: Edge  ) : List[Vertex]
   def isDirected(e:Edge) : Boolean
   def getSource(e:Edge) : Vertex
-  def getDest(e:Edge) : Vertex
-  
-  //def withFilter(p: Vertex => Boolean): Graph[Vertex]
-  //def foreach(b : Vertex => Unit) : Unit
-  
+  def getDest(e:Edge) : Vertex  
 }
