@@ -6,17 +6,17 @@ import scala.collection.mutable.Map
 /**
  * @author Vladar
  */
-class Vertex(vertex: String) {
-  var value: String = vertex
-  var label: String = vertex
+class Vertex(vertex: Component) {
+  var value: Component = vertex
+  var label: String = null
   var color: Color = null
   var shape: Shape = null
 }
 
 object Vertex {  
-  val verticesMap: Map[String, Vertex] = Map()
+  val verticesMap: Map[Component, Vertex] = Map()
   
-  def apply(vertex: String): Vertex = {
+  def apply(vertex: Component): Vertex = {
     if (!verticesMap.contains(vertex)) {
         val vt = new Vertex(vertex)
         verticesMap(vertex) = vt
@@ -27,10 +27,10 @@ object Vertex {
     }
   }
   
-  def update(vertex:String, label:String) = if(verticesMap.contains(vertex)) verticesMap(vertex).label = label
+  def update(vertex:Component, label:String) = if(verticesMap.contains(vertex)) verticesMap(vertex).label = label
   
-  def update(vertex:String, color:Color) = if(verticesMap.contains(vertex)) verticesMap(vertex).color = color
+  def update(vertex:Component, color:Color) = if(verticesMap.contains(vertex)) verticesMap(vertex).color = color
   
-  def update(vertex:String, shape:Shape) = if(verticesMap.contains(vertex)) verticesMap(vertex).shape = shape
+  def update(vertex:Component, shape:Shape) = if(verticesMap.contains(vertex)) verticesMap(vertex).shape = shape
   
 }

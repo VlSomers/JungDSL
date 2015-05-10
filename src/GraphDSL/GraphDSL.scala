@@ -13,6 +13,7 @@ import edu.uci.ics.jung.algorithms.layout.SpringLayout
 package object GraphDSL {
 
   type edge = (Vertex,Vertex,Edge)
+  type Component = Any
   
   final val blue = Color.BLUE
   final val red = Color.RED
@@ -43,7 +44,7 @@ package object GraphDSL {
   }
     
   implicit class GraphOps(val graph: Graph) {
-    def += (vertex: String)(implicit model: GraphModel): Graph = {
+    def += (vertex: Component)(implicit model: GraphModel): Graph = {
       model.addVertex(graph, Vertex(vertex))  
     }
     def += (edge: edge)(implicit model: GraphModel): Graph = {
@@ -54,7 +55,7 @@ package object GraphDSL {
       for (edge<-edges) {gr = model.addEdge(graph, edge)}
       gr
     }
-    def += (vertices: => List[String])(implicit model: GraphModel): Graph = {
+    def += (vertices: => List[Component])(implicit model: GraphModel): Graph = {
       // "=>" to avoid -> error : have same type after erasure
       var gr: Graph = null
       for (vertex<-vertices) {gr = model.addVertex(graph, Vertex(vertex))}
@@ -62,14 +63,14 @@ package object GraphDSL {
     }
   }
   
-  implicit class VertexGraphOps(val component: String) {
-    def to(vertex2: String): (String,String) = {
+  implicit class VertexGraphOps(val component: Component) {
+    def test(vertex2: Component): (Component, Component) = {
       (component, vertex2)
     }
-    def and(vertex2: String): List[String] = {
+    def and(vertex2: Component): List[Component] = {
       List(component, vertex2)
     }
-    def shape(vertex2: String): Unit = {
+    def shape(vertex2: Component): Unit = {
       List(component, vertex2)
     }
     def color(color: Color): Unit = {
@@ -88,31 +89,31 @@ package object GraphDSL {
     }
   }
   
-  implicit class TupleGraphOps(val vertices: (String, String)) {
-    def withLabel(edgeLabel: String): edge = {
+  implicit class TupleGraphOps(val vertices: (Component, Component)) {
+    def withLabel(edgeLabel: Component): edge = {
       (Vertex(vertices._1), Vertex(vertices._2), Edge(edgeLabel))
     }
   }
   
-  implicit class EdgeGraphOps(val edge1: (String, String, String)) {
-    def and(edge2: (String, String, String)): List[edge] = {
+  implicit class EdgeGraphOps(val edge1: (Component, Component, Component)) {
+    def and(edge2: (Component, Component, Component)): List[edge] = {
       List((Vertex(edge1._1), Vertex(edge1._2), Edge(edge1._3)),(Vertex(edge2._1), Vertex(edge2._2), Edge(edge2._3)))
     }
   }
   
   implicit class ListEdgesGraphOps(val edges: List[edge]) {
-    def and(edge: (String,String,String)): List[edge] = {
+    def and(edge: (Component,Component,Component)): List[edge] = {
       edges:+(Vertex(edge._1), Vertex(edge._2), Edge(edge._3))
     }
   }
-  implicit class ListVerticesGraphOps(val vertices: List[String]) {
-    def and(vertex: String): List[String] = {
+  implicit class ListVerticesGraphOps(val vertices: List[Component]) {
+    def and(vertex: Component): List[Component] = {
       vertices:+vertex
     }
   }
   
   implicit class GrapheFrameOps(val graphFrame: GraphFrame) {
-    def color(fct: String => (Int, Int, Int)): Unit = {
+    def color(fct: Component => (Int, Int, Int)): Unit = {
       graphFrame.vertexPaintValuesTSF(fct)
     }
     def shape(f: Graph => Layout[Vertex, Edge]): Unit = {
@@ -121,4 +122,11 @@ package object GraphDSL {
       )
     }
   }
+  
+  implicit class AnyFrameOps(val component: Any) {
+    def afficher(): Unit = {
+      println(component.toString)
+    }
+  }
+  
 }

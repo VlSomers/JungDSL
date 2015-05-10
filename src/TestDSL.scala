@@ -9,17 +9,31 @@ object TestDSL extends App with simpleGraphModel {
   print("lol")
   val graph = SimpleGraph("my graph")
   
+  
+  1.afficher
+  "test".afficher
+  2.0.afficher
+  (2,3,4).afficher
+  
   // vertices
   graph += "Square"
   graph += "Rectangle"
   graph += "Circle"
   graph += "Node1" and "Node2" and "Node3"
   
+  val t = "Square".test("Rectangle")
+  
   // edges  
-  graph += "Square" to "Rectangle" withLabel "Edge1"
-  graph += "Square" to "Circle" withLabel "Edge2"
-  graph += "Circle" to "Square" withLabel "Edge3"
+  graph += ("Square".test("Rectangle")).withLabel("Edge1")
+  graph += "Square" test "Circle" withLabel "Edge2"
+  graph += "Circle" test "Square" withLabel "Edge3"
   graph += ("Triangle", "Rectangle", "Edge4") and ("30", "Triangle", "Edge5") and ("Node3","Node2","pont")
+  
+  class Person(var name: String, var age: Int)
+  val mouche = new Person("Armand", 20)
+  graph += (1, 2, 3) and (mouche, "blabla", (2,3))
+  
+  mouche.label("Armand Bosquillon")
   
   "Circle".color(blue)
   "Square".color(red)
@@ -40,12 +54,6 @@ object TestDSL extends App with simpleGraphModel {
   "Edge1".label("CROUCROUTE")
   "Square".label("CECI EST UN CARRE")
   
-  
-  /*
-  "Square".shape = Square(20)
-  "Circle".shape = Circle(20)
-  "Rectangle".shape = Rectangle(20, 40)
-*/
   val graphFrame = GraphFrame(graph)
   graphFrame.shape(CircleLayout)
   graphFrame.show

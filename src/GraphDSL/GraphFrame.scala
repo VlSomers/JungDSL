@@ -56,11 +56,11 @@ class GraphFrame(graph: Graph) {
   
   def changeLayout(fct: => Layout[Vertex, Edge]): Unit = layout = fct
   
-  def vertexPaintTSF_=(fct: String => Color): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
+  def vertexPaintTSF_=(fct: Component => Color): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
       override def transform(vertex: Vertex): Color = fct(vertex.value)
   }
   
-  def vertexPaintValuesTSF(fct: String => (Int, Int, Int)): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
+  def vertexPaintValuesTSF(fct: Component => (Int, Int, Int)): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
       override def transform(vertex: Vertex): Color = {
         val colorValues = fct(vertex.value)
         new Color(colorValues._1, colorValues._2, colorValues._3)
