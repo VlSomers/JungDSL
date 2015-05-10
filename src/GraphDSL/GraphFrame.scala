@@ -12,13 +12,14 @@ import javax.swing.JMenuBar
 import edu.uci.ics.jung.visualization.control.EditingModalGraphMouse
 import org.apache.commons.collections15.Factory
 
-/**
- * @author Vladar
- */
 class GraphFrame(graph: Graph) {
   var layout: Layout[Vertex, Edge] = new CircleLayout[Vertex, Edge](graph.graph)
     
   val gr: Graph = graph
+  
+  //////////////////////////
+  //    Defaults values   //
+  //////////////////////////
   
   var defaultVertexLabel = "vertex"
   var defaultVertexColor = Color.GREEN
@@ -26,6 +27,10 @@ class GraphFrame(graph: Graph) {
   var defaultEdgeLabel   = "edge"
   var defaultEdgeColor   = Color.BLACK
   var defaultEdgeStroke  = new BasicStroke()
+  
+  ///////////////////////////
+  // Defaults Transformers //
+  ///////////////////////////
   
   var vertexLabelTSF = new Transformer[Vertex, String] {
       override def transform(vertex: Vertex): String = if(vertex.label!=null) vertex.label else vertex.value.toString
@@ -51,7 +56,9 @@ class GraphFrame(graph: Graph) {
       override def transform(edge: Edge): Stroke = if(edge.stroke!=null) edge.stroke else defaultEdgeStroke
   }
   
-  
+  /////////////////////////////////////////
+  //    Custom layout and transformers   //
+  ////////////////////////////////////////
   
   def changeLayout(fct: => Layout[Vertex, Edge]): Unit = layout = fct
   
@@ -59,6 +66,9 @@ class GraphFrame(graph: Graph) {
       override def transform(vertex: Vertex): Color = fct(vertex.value)
   }
   
+  /** The Transformer of vertex color
+   *  The user choose the Transformer behavior with a function parameter
+   */
   def vertexPaintValuesTSF(fct: Component => (Int, Int, Int)): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
       override def transform(vertex: Vertex): Color = {
         val colorValues = fct(vertex.value)
@@ -66,6 +76,7 @@ class GraphFrame(graph: Graph) {
       }
   }
   
+  /** Create new colors based on a by name parameter */
   def vertexPaintValuesTSF(fct: => (Int, Int, Int)): Unit = vertexPaintTSF = new Transformer[Vertex, Paint] {
       override def transform(vertex: Vertex): Color = {
         val colorValues = fct // by name parameter
@@ -75,6 +86,7 @@ class GraphFrame(graph: Graph) {
 
   
   
+  /** In this function we create the VisualizationViewer and the JFrame with the Transformers and the Layout defined above */
   def show(): Unit = {
     
     // ref : http://www.grotto-networking.com/JUNG/EditingGraphViewer1.java
@@ -93,24 +105,24 @@ class GraphFrame(graph: Graph) {
     vv.getRenderContext.setEdgeStrokeTransformer(edgeStrokeTSF)
     vv.getRenderContext.setEdgeArrowStrokeTransformer(edgeStrokeTSF)
     
-    
-    
+    // Factory to automatically create new edges and vertices on mouse click
     var nodeCount = 0
     var edgeCount = 0
-    val vertexFactory = new Factory[Vertex]() { // My vertex factory
+    val vertexFactory = new Factory[Vertex]() {
       def create(): Vertex = {
         nodeCount = nodeCount+1
         Vertex("V"+nodeCount)
       }
     }
     
-    val edgeFactory = new Factory[Edge]() { // My edge factory
+    val edgeFactory = new Factory[Edge]() { 
       def create(): Edge = {
         edgeCount = edgeCount+1
         Edge("E"+edgeCount)
       }
     }
             
+    // GUI
     val gm = new EditingModalGraphMouse(vv.getRenderContext(), vertexFactory, edgeFactory)
     vv.setGraphMouse(gm)
     
@@ -122,31 +134,20 @@ class GraphFrame(graph: Graph) {
     val menuBar = new JMenuBar()
     val modeMenu = gm.getModeMenu()
     modeMenu.setText("Mouse Mode")
-    modeMenu.setIcon(null) // I'm using this in a main menu
-    modeMenu.setPreferredSize(new Dimension(80,20)) // Change the size so I can see the text
+    modeMenu.setIcon(null) 
+    modeMenu.setPreferredSize(new Dimension(80,20)) 
     
     menuBar.add(modeMenu)
     frame.setJMenuBar(menuBar)
-    gm.setMode(ModalGraphMouse.Mode.EDITING) // Start off in editing mode
-    frame.pack()
-    frame.setVisible(true)
+    gm.setMode(ModalGraphMouse.Mode.EDITING) 
     
-    /*
-    // mouse
-    val gm = new DefaultModalGraphMouse()
-    gm.setMode(ModalGraphMouse.Mode.TRANSFORMING)
-    vv.setGraphMouse(gm)
-    vv.addKeyListener(gm.getModeKeyListener())
-        
-    // create and launch the frame
-    frame.getContentPane.add(vv)
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+    // Show the frame
     frame.pack()
     frame.setVisible(true)
-    * */
   }
 }
 
+/** Companion object */
 object GraphFrame {
   def apply(graph: Graph): GraphFrame = {
     new GraphFrame(graph)
