@@ -8,7 +8,19 @@ object TestMouche extends App with simpleGraphModel {
  println("looool")
   val graph = SimpleGraph("my graph")
   val graph2 = SimpleGraph("my graph2")
+  val graphComplet = new SimpleGraph("my graph2") with direct_path
   
+  graphComplet += "Vertex1"
+  graphComplet += "Vertex2"
+  graphComplet += "Vertex3"
+  graphComplet += "Vertex4"
+  
+  val graphFrame1 = GraphFrame(graphComplet)
+  graphFrame1.shape(CircleLayout)
+  graphFrame1.show
+  
+   
+  /*
     // vertices
   //graph2 += "Square"
   //graph2 += "Rectangle"
@@ -62,6 +74,9 @@ object TestMouche extends App with simpleGraphModel {
   println("blabla")
   val result : Graph = graph + graph2
   println("ici")
+ 
+ 
+ 
   /*
   "Square".shape = Square(20)
   "Circle".shape = Circle(20)
@@ -78,7 +93,7 @@ object TestMouche extends App with simpleGraphModel {
   
   val graphFrame = GraphFrame(result)
   graphFrame.shape(CircleLayout)
-  graphFrame.show
+  graphFrame.show */
   
   /*
   val gf = GraphFrame(result)

@@ -16,7 +16,7 @@ class SimpleGraph(newName: String) extends Graph {
   def name: String = _name
   def name_=(newName: String) = _name = newName
   
-  def addVertex(vertex: Vertex): Graph = {    
+  def addVertex(vertex: Vertex): Graph = {  
     graph.addVertex(vertex)
     this
   }
