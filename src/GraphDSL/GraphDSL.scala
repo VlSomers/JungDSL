@@ -31,7 +31,6 @@ package object GraphDSL {
   def Square(x: Int) : Shape = new Rectangle(-x/2, -x/2, x, x)
   def Ellipse(x: Int, y: Int) : Shape = new Ellipse2D.Double(-x/2, -y/2, x, y)
   def Circle(x: Int) : Shape = new Ellipse2D.Double(-x/2, -x/2, x, x)
-
   
   def CircleLayout(graph: Graph) : Layout[Vertex, Edge] = new CircleLayout[Vertex, Edge](graph.graph)
   def StaticLayout(graph: Graph) : Layout[Vertex, Edge] = new StaticLayout[Vertex, Edge](graph.graph)

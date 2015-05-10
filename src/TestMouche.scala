@@ -9,15 +9,13 @@ object TestMouche extends App{
   val graph = Graph("my graph")
   print("lole")
   
-  val fun : (<E>) => String
+  
   //val gr = Graph("my graph")
   
   // vertices
   /*graph += "Square"
   graph += "Rectangle"
   graph += "Circle"*/
-   val graph = Graph("lol")
-   gr = graph
   addV("Square","Rectangle","Circle")
   addE(("Square","Rectangle","Edge1"),("Square","Circle","Edge2"),("Circle","Square","Edge3"))
   show()
@@ -27,7 +25,6 @@ object TestMouche extends App{
   graph += "Square" to "Circle" withLabel "Edge2"
   graph += "Circle" to "Square" withLabel "Edge3"
   */
-
   // edges 
   /* 
   gr += "Square" to "Rectangle" withLabel "Edge1"
@@ -35,7 +32,7 @@ object TestMouche extends App{
   gr += "Circle" to "Square" withLabel "Edge3"*/
   
   //print("lol2")
- 
+   // val graphFrame = GraphFrame(gr)
 
   /*
   "Square".shape = Square(20)
