@@ -6,6 +6,7 @@ import GraphDSL._
 
 object TestDSL extends App with simpleGraphModel {
 
+  print("lol")
   val graph = SimpleGraph("my graph")
   
   // vertices
