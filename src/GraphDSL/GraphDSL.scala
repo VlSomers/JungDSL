@@ -25,6 +25,7 @@ package object GraphDSL {
   final val Grey = Color.DARK_GRAY
   final val Orange = Color.ORANGE
   
+
   def DashedStroke(x: Float) : Stroke = new BasicStroke(x, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, Array(10.0f), 2.0f)
   def Stroke(x: Float) : Stroke = new BasicStroke(x)
   
@@ -64,6 +65,9 @@ package object GraphDSL {
     def show(): Unit = {
         val graphFrame = GraphFrame(graph)
         graphFrame.show
+    }    
+    def + (graph2 : Graph)(implicit model: GraphModel) : Graph = {
+      model.add(graph,graph2)
     }
   }
   

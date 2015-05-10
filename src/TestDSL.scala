@@ -8,6 +8,7 @@ object TestDSL extends App with simpleGraphModel {
 
   val graph = SimpleGraph("my graph")
   graph.name = "ALLLLLERRRRR"
+
   // vertices
   graph += "Square"
   graph += "Rectangle"
