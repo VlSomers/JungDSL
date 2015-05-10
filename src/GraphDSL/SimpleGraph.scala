@@ -10,7 +10,8 @@ import edu.uci.ics.jung.graph.util.EdgeType
 class SimpleGraph(newName: String) extends Graph {
   val graph = new SparseGraph[Vertex, Edge]
   
-  private var _name = newName  
+  override var _name = newName  
+ 
   def name: String = _name
   def name_=(newName: String) = _name = newName
   

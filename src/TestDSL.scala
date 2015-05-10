@@ -7,7 +7,7 @@ import GraphDSL._
 object TestDSL extends App with simpleGraphModel {
 
   val graph = SimpleGraph("my graph")
-  
+  graph.name = "ALLLLLERRRRR"
   // vertices
   graph += "Square"
   graph += "Rectangle"
@@ -49,7 +49,7 @@ object TestDSL extends App with simpleGraphModel {
   graph.show
   
   val graphFrame = GraphFrame(graph)
-  graphFrame.shape(KKLayout)
+  graphFrame.shape(StaticLayout)
   graphFrame.show
   
   val gf = GraphFrame(graph)

@@ -16,10 +16,9 @@ import org.apache.commons.collections15.Factory
  * @author Vladar
  */
 class GraphFrame(graph: Graph) {
-  val frame = new JFrame
   var layout: Layout[Vertex, Edge] = new CircleLayout[Vertex, Edge](graph.graph)
-  
-  implicit var gr: Graph = graph
+    
+  val gr: Graph = graph
   
   var defaultVertexLabel = "vertex"
   var defaultVertexColor = Color.GREEN
@@ -114,7 +113,8 @@ class GraphFrame(graph: Graph) {
             
     val gm = new EditingModalGraphMouse(vv.getRenderContext(), vertexFactory, edgeFactory)
     vv.setGraphMouse(gm)
-
+    
+    val frame = new JFrame(graph.name)
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
     frame.getContentPane().add(vv)
         
@@ -124,7 +124,7 @@ class GraphFrame(graph: Graph) {
     modeMenu.setText("Mouse Mode")
     modeMenu.setIcon(null) // I'm using this in a main menu
     modeMenu.setPreferredSize(new Dimension(80,20)) // Change the size so I can see the text
-        
+    
     menuBar.add(modeMenu)
     frame.setJMenuBar(menuBar)
     gm.setMode(ModalGraphMouse.Mode.EDITING) // Start off in editing mode
