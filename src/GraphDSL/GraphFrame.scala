@@ -6,6 +6,11 @@ import edu.uci.ics.jung.algorithms.layout.CircleLayout
 import org.apache.commons.collections15.Transformer
 import java.awt._
 import edu.uci.ics.jung.algorithms.layout.Layout
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse
+import javax.swing.JMenuBar
+import edu.uci.ics.jung.visualization.control.EditingModalGraphMouse
+import org.apache.commons.collections15.Factory
 
 /**
  * @author Vladar
@@ -65,6 +70,9 @@ class GraphFrame(graph: Graph) {
   
   
   def show(): Unit = {
+    
+    // ref : http://www.grotto-networking.com/JUNG/EditingGraphViewer1.java
+    
     val vv = new VisualizationViewer[Vertex, Edge](layout)
     
     // set vertex transformer
@@ -79,11 +87,56 @@ class GraphFrame(graph: Graph) {
     vv.getRenderContext.setEdgeStrokeTransformer(edgeStrokeTSF)
     vv.getRenderContext.setEdgeArrowStrokeTransformer(edgeStrokeTSF)
     
+    
+    
+    var nodeCount = 0
+    var edgeCount = 0
+    val vertexFactory = new Factory[Vertex]() { // My vertex factory
+      def create(): Vertex = {
+        nodeCount = nodeCount+1
+        Vertex("V"+nodeCount)
+      }
+    }
+    
+    val edgeFactory = new Factory[Edge]() { // My edge factory
+      def create(): Edge = {
+        edgeCount = edgeCount+1
+        Edge("E"+edgeCount)
+      }
+    }
+            
+    val gm = new EditingModalGraphMouse(vv.getRenderContext(), vertexFactory, edgeFactory)
+    vv.setGraphMouse(gm)
+
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+    frame.getContentPane().add(vv)
+        
+    // Let's add a menu for changing mouse modes
+    val menuBar = new JMenuBar()
+    val modeMenu = gm.getModeMenu()
+    modeMenu.setText("Mouse Mode")
+    modeMenu.setIcon(null) // I'm using this in a main menu
+    modeMenu.setPreferredSize(new Dimension(80,20)) // Change the size so I can see the text
+        
+    menuBar.add(modeMenu)
+    frame.setJMenuBar(menuBar)
+    gm.setMode(ModalGraphMouse.Mode.EDITING) // Start off in editing mode
+    frame.pack()
+    frame.setVisible(true)
+    
+    /*
+    // mouse
+    val gm = new DefaultModalGraphMouse()
+    gm.setMode(ModalGraphMouse.Mode.TRANSFORMING)
+    vv.setGraphMouse(gm)
+    vv.addKeyListener(gm.getModeKeyListener())
+        
     // create and launch the frame
     frame.getContentPane.add(vv)
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
     frame.pack()
     frame.setVisible(true)
+    * */
   }
 }
 

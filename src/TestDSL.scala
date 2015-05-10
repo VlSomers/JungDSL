@@ -51,7 +51,7 @@ object TestDSL extends App with simpleGraphModel {
   
   val gf = GraphFrame(graph)
   gf.color(x => (20,20,200))
-  gf.shape(SpringLayout)
+  //gf.shape(SpringLayout)
   gf.show()
 }
 
